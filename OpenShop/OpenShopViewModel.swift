@@ -52,6 +52,7 @@ public struct OpenShopViewModel {
     private var validityStatus: OpenShopValidityStatus = []
     
     // private properties
+    private var isUserChangeDomainManually = false
     private var shopName: String?
     private var shopDomain: String?
     private var selectedCity: City?
@@ -104,6 +105,7 @@ public struct OpenShopViewModel {
     
     // user ganti, ngecek ke server apakah valid atau ga
     public mutating func checkDomainValidation(shopDomain: String) {
+        isUserChangeDomainManually = true
         self.shopDomain = shopDomain
         validityStatus.remove(.validShopDomain)
         guard !shopDomain.isEmpty else {
@@ -125,6 +127,7 @@ public struct OpenShopViewModel {
     }
     
     public mutating func suggestShopDomain(shopName: String) {
+        guard isUserChangeDomainManually == false else { return }
         shopNetwork.requestShopDomainSuggestion(shopName: shopName) { (shopDomainSuggestion) in
             self.validityStatus.insert(.validShopDomain)
             self.shopDomain = shopDomainSuggestion

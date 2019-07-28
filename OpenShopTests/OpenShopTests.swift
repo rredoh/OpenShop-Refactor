@@ -110,9 +110,7 @@ class OpenShopTests: XCTestCase {
         //TODO custom response in ShopNetwork
         let expect = expectation(description: "show error when domain not available")
         viewModel.shopDomainErrorDidChanged = { errorMessage in
-            if errorMessage == nil {
-                XCTAssert(false, "Should emit error")
-            } else {
+            if errorMessage == ErrorString.shopDomainNotAvailable {
                 expect.fulfill()
             }
         }
@@ -123,11 +121,10 @@ class OpenShopTests: XCTestCase {
     
     func testShouldNotShowErrorWhenDomainAvailable() {
         let expect = expectation(description: "should not show error when domain available")
+        expect.isInverted = true
         viewModel.shopDomainErrorDidChanged = { errorMessage in
-            if errorMessage == nil {
+            if errorMessage != nil {
                 expect.fulfill()
-            } else {
-                XCTAssert(false, "Should not emit error")
             }
         }
         
@@ -182,6 +179,17 @@ class OpenShopTests: XCTestCase {
         viewModel.changePostalCode("14240")
         viewModel.changeCity(City(id: 2, name: "Jakarta", postalCodes: ["14240", "14241"]))
         viewModel.submitForm()
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testShouldNotSuggestDomainIfUserManuallyInputTheDomain() {
+        let expect = expectation(description: "should not suggest domain if user already input a domain")
+        expect.isInverted = true
+        viewModel.onGetShopDomainSuggestion = { _ in
+            expect.fulfill()
+        }
+        viewModel.checkDomainValidation(shopDomain: "toko-saya")
+        viewModel.shopNameDidChanged("change toko")
         waitForExpectations(timeout: 1, handler: nil)
     }
     
