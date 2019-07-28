@@ -22,15 +22,11 @@ class ViewController: UIViewController {
     @IBOutlet var openShopButton: UIButton!
     
     private let shopNetwork = ShopNetwork()
+    private var isUserChangeDomainManually = false
+    private var viewModel = OpenShopViewModel()
+    private var postalCodeList: [String] = []
     
     // MARK: Local properties
-    
-    private var selectedCity: City? {
-        didSet {
-            cityNameLabel.text = selectedCity?.name ?? "Pilih Kota"
-            cityNameErrorLabel.text = nil
-        }
-    }
     
     private var selectedPostalCode: String? {
         didSet {
@@ -53,74 +49,69 @@ class ViewController: UIViewController {
         postalCodeButton.addTarget(self, action: #selector(postalCodeTapped), for: .touchUpInside)
         
         openShopButton.addTarget(self, action: #selector(didTapOpenShop), for: .touchUpInside)
+        viewModel.shopNameErrorDidChanged = { errorMessage in
+            self.shopNameErrorLabel.text = errorMessage
+        }
+        
+        viewModel.onGetShopDomainSuggestion = { shopDomainSuggestion in
+            self.shopDomainTextField.text = shopDomainSuggestion
+        }
+        
+        viewModel.shopDomainErrorDidChanged = { errorMessage in
+            self.shopDomainErrorLabel.text = errorMessage
+        }
+        
+        viewModel.onCityChanged = { cityName in
+            self.postalCodeLabel.text = "Pilih Kode Pos"
+            self.cityNameLabel.text = cityName
+            self.cityNameErrorLabel.text = nil
+        }
+        
+        viewModel.cityErrorDidChanged = { errorMessage in
+            self.cityNameErrorLabel.text = errorMessage
+        }
+        
+        viewModel.goToPostalCode = { postalCodes in
+            self.postalCodeList = postalCodes
+            self.performSegue(withIdentifier: "toPostalCode", sender: nil)
+        }
+        
+        viewModel.onPostalCodeChange = { postalCode in
+            self.postalCodeLabel.text = postalCode
+            self.postalCodeErrorLabel.text = nil
+        }
+        
+        viewModel.postalCodeErrorDidChanged = { errorMessage in
+            self.postalCodeErrorLabel.text = errorMessage
+        }
+        
+        viewModel.onSuccessOpenShop = {
+            let alertVc = UIAlertController(title: "Sukses", message: "Anda berhasil membuka Toko", preferredStyle: .alert)
+            alertVc.addAction(UIAlertAction(title: "Tutup", style: .default))
+            self.present(alertVc, animated: true)
+        }
+        
+        viewModel.onFailedOpenShop = { errorMessage in
+            let alertVc = UIAlertController(title: "Gagal", message: errorMessage, preferredStyle: .alert)
+            alertVc.addAction(UIAlertAction(title: "Tutup", style: .default))
+            self.present(alertVc, animated: true)
+        }
     }
     
     @objc private func postalCodeTapped() {
-        guard selectedCity != nil else {
-            cityNameErrorLabel.text = ErrorString.notSelectCityFirst
-            return
-        }
-        cityNameErrorLabel.text = nil
-        performSegue(withIdentifier: "toPostalCode", sender: nil)
+        viewModel.tapPostalCodeTrigger()
     }
     
     @objc private func shopNameDidChange() {
-        let shopName = shopNameTextField.text ?? ""
-        
-        // MARK: Shop Name Validation
-        
-        guard shopName.count >= 3 else {
-            shopNameErrorLabel.text = ErrorString.below3Characters
-            return
-        }
-        
-        // contain space at the beginning or end
-        guard shopName.trimmingCharacters(in: .whitespaces) == shopName else {
-            shopNameErrorLabel.text = ErrorString.shopNameContainWhitespace
-            return
-        }
-        shopNetwork.checkShopNameValidation(shopName: shopName) { isSuccess in
-            if !isSuccess {
-                shopNameErrorLabel.text = ErrorString.shopNameNotAvailable
-            } else {
-                shopNameErrorLabel.text = nil
-            }
-        }
-        
-        shopNetwork.requestShopDomainSuggestion(shopName: shopName) { shopDomainSuggestion in
-            shopDomainTextField.text = shopDomainSuggestion
-            shopDomainErrorLabel.text = nil
-        }
+        viewModel.shopNameDidChanged(shopNameTextField.text ?? "")
     }
     
     @objc private func shopDomainDidChange() {
-        let shopDomain = shopDomainTextField.text ?? ""
-        shopNetwork.checkShopDomainValidation(shopDomain: shopDomain) { isSuccess in
-            if !isSuccess {
-                shopDomainErrorLabel.text = ErrorString.shopDomainNotAvailable
-            } else {
-                shopDomainErrorLabel.text = nil
-            }
-        }
+        viewModel.checkDomainValidation(shopDomain: shopDomainTextField.text ?? "")
     }
     
     @objc private func didTapOpenShop() {
-        if shopNameTextField?.text == nil || shopNameTextField?.text == "" {
-            shopNameErrorLabel.text = ErrorString.emptyShopName
-        }
-        if shopDomainTextField?.text == nil || shopDomainTextField?.text == "" {
-            shopDomainErrorLabel.text = ErrorString.emptyShopDomain
-        }
-        
-        if selectedCity == nil {
-            cityNameErrorLabel.text = ErrorString.emptyCity
-        }
-        
-        if selectedPostalCode == nil {
-            postalCodeErrorLabel.text = ErrorString.emptyPostalCode
-        }
-        // valid shop name
-        // valid shop domain
+        viewModel.submitForm()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -129,30 +120,18 @@ class ViewController: UIViewController {
         if identifier == "toCity" {
             if let destination = segue.destination as? CityTableViewController {
                 destination.onSelectCity = { [weak self] city in
-                    self?.selectedCity = city
+                    self?.viewModel.changeCity(city)
                 }
             }
         }
         
         if identifier == "toPostalCode" {
             if let destination = segue.destination as? PostalCodeTableViewController {
-                destination.postalCodes = selectedCity?.postalCodes ?? []
+                destination.postalCodes = self.postalCodeList
                 destination.onSelectPostalCode = { [weak self] postalCode in
-                    self?.selectedPostalCode = postalCode
+                    self?.viewModel.changePostalCode(postalCode)
                 }
             }
         }
     }
-}
-
-public struct ErrorString {
-    public static let below3Characters = "Harus lebih dari 3 karakter"
-    public static let shopNameContainWhitespace = "Tidak boleh ada spasi di awal atau akhir nama toko"
-    public static let shopNameNotAvailable = "Nama Toko tidak tersedia"
-    public static let shopDomainNotAvailable = "Domain Toko tidak tersedia"
-    public static let notSelectCityFirst = "Harap Pilih kota terlebih dahulu"
-    public static let emptyShopName = "Harap Masukkan Nama Toko"
-    public static let emptyShopDomain = "Harap Masukkan Domain Toko"
-    public static let emptyCity = "Harap Pilih Kota"
-    public static let emptyPostalCode = "Harap Pilih Kode Pos"
 }

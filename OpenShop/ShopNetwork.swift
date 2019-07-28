@@ -30,4 +30,12 @@ public class ShopNetwork {
         }
         completion(true)
     }
+    
+    public func openShop(shopName: String, shopDomain: String, cityId: Int, postalCode: String, completion: (Bool) -> Void) {
+        guard cityId == 2 else {
+            completion(false)
+            return
+        }
+        completion(true)
+    }
 }

@@ -17,6 +17,7 @@
 		E5092DBB22DDF94100692459 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5092DBA22DDF94100692459 /* Assets.xcassets */; };
 		E5092DBE22DDF94100692459 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5092DBC22DDF94100692459 /* LaunchScreen.storyboard */; };
 		E5092DC922DDF94100692459 /* OpenShopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5092DC822DDF94100692459 /* OpenShopUITests.swift */; };
+		E5C8C64822EDE7EC00533097 /* OpenShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C8C64722EDE7EC00533097 /* OpenShopViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		E5092DC422DDF94100692459 /* OpenShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenShopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5092DC822DDF94100692459 /* OpenShopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenShopUITests.swift; sourceTree = "<group>"; };
 		E5092DCA22DDF94100692459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5C8C64722EDE7EC00533097 /* OpenShopViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenShopViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				E5092DB322DDF93F00692459 /* AppDelegate.swift */,
-				E5092DB522DDF93F00692459 /* ViewController.swift */,
 				E5092DB722DDF93F00692459 /* Main.storyboard */,
 				E5092DBA22DDF94100692459 /* Assets.xcassets */,
 				E5092DBC22DDF94100692459 /* LaunchScreen.storyboard */,
@@ -95,6 +96,8 @@
 				576FAE7C22E43CE90092746E /* ShopNetwork.swift */,
 				576FAE7E22E43F3F0092746E /* CityTableViewController.swift */,
 				576FAE8022E443410092746E /* PostalCodeTableViewController.swift */,
+				E5092DB522DDF93F00692459 /* ViewController.swift */,
+				E5C8C64722EDE7EC00533097 /* OpenShopViewModel.swift */,
 			);
 			path = OpenShop;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				576FAE7D22E43CE90092746E /* ShopNetwork.swift in Sources */,
+				E5C8C64822EDE7EC00533097 /* OpenShopViewModel.swift in Sources */,
 				E5092DB622DDF93F00692459 /* ViewController.swift in Sources */,
 				576FAE7F22E43F3F0092746E /* CityTableViewController.swift in Sources */,
 				576FAE8122E443410092746E /* PostalCodeTableViewController.swift in Sources */,
