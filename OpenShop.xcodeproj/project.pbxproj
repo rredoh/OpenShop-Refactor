@@ -18,10 +18,18 @@
 		E5092DBE22DDF94100692459 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5092DBC22DDF94100692459 /* LaunchScreen.storyboard */; };
 		E5092DC922DDF94100692459 /* OpenShopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5092DC822DDF94100692459 /* OpenShopUITests.swift */; };
 		E5C8C64822EDE7EC00533097 /* OpenShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C8C64722EDE7EC00533097 /* OpenShopViewModel.swift */; };
+		E5C8C65D22EDEA3B00533097 /* OpenShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C8C65C22EDEA3B00533097 /* OpenShopTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		E5092DC522DDF94100692459 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5092DA822DDF93F00692459 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E5092DAF22DDF93F00692459;
+			remoteInfo = OpenShop;
+		};
+		E5C8C65F22EDEA3B00533097 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E5092DA822DDF93F00692459 /* Project object */;
 			proxyType = 1;
@@ -46,6 +54,9 @@
 		E5092DC822DDF94100692459 /* OpenShopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenShopUITests.swift; sourceTree = "<group>"; };
 		E5092DCA22DDF94100692459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5C8C64722EDE7EC00533097 /* OpenShopViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenShopViewModel.swift; sourceTree = "<group>"; };
+		E5C8C65A22EDEA3A00533097 /* OpenShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenShopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5C8C65C22EDEA3B00533097 /* OpenShopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenShopTests.swift; sourceTree = "<group>"; };
+		E5C8C65E22EDEA3B00533097 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +74,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E5C8C65722EDEA3A00533097 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -71,6 +89,7 @@
 			children = (
 				E5092DB222DDF93F00692459 /* OpenShop */,
 				E5092DC722DDF94100692459 /* OpenShopUITests */,
+				E5C8C65B22EDEA3B00533097 /* OpenShopTests */,
 				E5092DB122DDF93F00692459 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -80,6 +99,7 @@
 			children = (
 				E5092DB022DDF93F00692459 /* OpenShop.app */,
 				E5092DC422DDF94100692459 /* OpenShopUITests.xctest */,
+				E5C8C65A22EDEA3A00533097 /* OpenShopTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,6 +129,15 @@
 				E5092DCA22DDF94100692459 /* Info.plist */,
 			);
 			path = OpenShopUITests;
+			sourceTree = "<group>";
+		};
+		E5C8C65B22EDEA3B00533097 /* OpenShopTests */ = {
+			isa = PBXGroup;
+			children = (
+				E5C8C65C22EDEA3B00533097 /* OpenShopTests.swift */,
+				E5C8C65E22EDEA3B00533097 /* Info.plist */,
+			);
+			path = OpenShopTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +178,24 @@
 			productReference = E5092DC422DDF94100692459 /* OpenShopUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		E5C8C65922EDEA3A00533097 /* OpenShopTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5C8C66322EDEA3B00533097 /* Build configuration list for PBXNativeTarget "OpenShopTests" */;
+			buildPhases = (
+				E5C8C65622EDEA3A00533097 /* Sources */,
+				E5C8C65722EDEA3A00533097 /* Frameworks */,
+				E5C8C65822EDEA3A00533097 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E5C8C66022EDEA3B00533097 /* PBXTargetDependency */,
+			);
+			name = OpenShopTests;
+			productName = OpenShopTests;
+			productReference = E5C8C65A22EDEA3A00533097 /* OpenShopTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -163,6 +210,10 @@
 						CreatedOnToolsVersion = 10.2.1;
 					};
 					E5092DC322DDF94100692459 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = E5092DAF22DDF93F00692459;
+					};
+					E5C8C65922EDEA3A00533097 = {
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = E5092DAF22DDF93F00692459;
 					};
@@ -183,6 +234,7 @@
 			targets = (
 				E5092DAF22DDF93F00692459 /* OpenShop */,
 				E5092DC322DDF94100692459 /* OpenShopUITests */,
+				E5C8C65922EDEA3A00533097 /* OpenShopTests */,
 			);
 		};
 /* End PBXProject section */
@@ -199,6 +251,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E5092DC222DDF94100692459 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5C8C65822EDEA3A00533097 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -230,6 +289,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E5C8C65622EDEA3A00533097 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5C8C65D22EDEA3B00533097 /* OpenShopTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -237,6 +304,11 @@
 			isa = PBXTargetDependency;
 			target = E5092DAF22DDF93F00692459 /* OpenShop */;
 			targetProxy = E5092DC522DDF94100692459 /* PBXContainerItemProxy */;
+		};
+		E5C8C66022EDEA3B00533097 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E5092DAF22DDF93F00692459 /* OpenShop */;
+			targetProxy = E5C8C65F22EDEA3B00533097 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -448,6 +520,44 @@
 			};
 			name = Release;
 		};
+		E5C8C66122EDEA3B00533097 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = OpenShopTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokopedia.OpenShopTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenShop.app/OpenShop";
+			};
+			name = Debug;
+		};
+		E5C8C66222EDEA3B00533097 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = OpenShopTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokopedia.OpenShopTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenShop.app/OpenShop";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -474,6 +584,15 @@
 			buildConfigurations = (
 				E5092DD122DDF94100692459 /* Debug */,
 				E5092DD222DDF94100692459 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5C8C66322EDEA3B00533097 /* Build configuration list for PBXNativeTarget "OpenShopTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5C8C66122EDEA3B00533097 /* Debug */,
+				E5C8C66222EDEA3B00533097 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
