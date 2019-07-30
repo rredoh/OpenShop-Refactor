@@ -93,7 +93,7 @@ public struct OpenShopViewModel {
         
         suggestShopDomain(shopName: shopName)
         
-        shopNetwork.checkShopNameValidation(shopName: shopName) { isSuccess in
+        shopNetwork.checkShopNameValidation(shopName) { isSuccess in
             if isSuccess {
                 shopNameErrorDidChanged?(nil)
                 validityStatus.insert(.validShopName)
@@ -116,7 +116,7 @@ public struct OpenShopViewModel {
             shopDomainErrorDidChanged?(ErrorString.below3Characters)
             return
         }
-        shopNetwork.checkShopDomainValidation(shopDomain: shopDomain) { isValid in
+        shopNetwork.checkShopDomainValidation(shopDomain) { isValid in
             if isValid {
                 shopDomainErrorDidChanged?(nil)
                 validityStatus.insert(.validShopDomain)
@@ -128,7 +128,7 @@ public struct OpenShopViewModel {
     
     public mutating func suggestShopDomain(shopName: String) {
         guard isUserChangeDomainManually == false else { return }
-        shopNetwork.requestShopDomainSuggestion(shopName: shopName) { (shopDomainSuggestion) in
+        shopNetwork.requestShopDomainSuggestion(shopName) { (shopDomainSuggestion) in
             self.validityStatus.insert(.validShopDomain)
             self.shopDomain = shopDomainSuggestion
             onGetShopDomainSuggestion?(shopDomainSuggestion)
@@ -181,7 +181,7 @@ public struct OpenShopViewModel {
             return
         }
         
-        shopNetwork.openShop(shopName: shopName!, shopDomain: shopDomain!, cityId: selectedCity!.id, postalCode: selectedPostalCode!) { isSuccess in
+        shopNetwork.openShop(shopName!, shopDomain!, selectedCity!.id, selectedPostalCode!) { isSuccess in
             if isSuccess {
                 onSuccessOpenShop?()
             } else {

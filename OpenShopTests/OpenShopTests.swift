@@ -11,8 +11,11 @@ import XCTest
 
 class OpenShopTests: XCTestCase {
     var viewModel: OpenShopViewModel!
+    var shopNetwork: ShopNetwork!
+    
     override func setUp() {
-        self.viewModel = OpenShopViewModel(shopNetwork: ShopNetwork())
+        self.shopNetwork = ShopNetwork()
+        self.viewModel = OpenShopViewModel(shopNetwork: shopNetwork)
     }
     
     func testShouldShowErrorWhenShopNameEmpty() {
@@ -87,12 +90,15 @@ class OpenShopTests: XCTestCase {
     // Addon
     func testShouldShowErrorWhenShopNameNotAvailable() {
         let expect = expectation(description: "Should show error when shop name not available")
+        shopNetwork.checkShopNameValidation = { _, completion in
+            completion(false)
+        }
         viewModel.shopNameErrorDidChanged = { message in
             if message == ErrorString.shopNameNotAvailable {
                 expect.fulfill()
             }
         }
-        viewModel.shopNameDidChanged("Toko no")
+        viewModel.shopNameDidChanged("Toko")
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -108,6 +114,9 @@ class OpenShopTests: XCTestCase {
     
     func testShouldShowErrorWhenDomainNotAvailable() {
         //TODO custom response in ShopNetwork
+        shopNetwork.checkShopDomainValidation = { _, completion in
+            completion(false)
+        }
         let expect = expectation(description: "show error when domain not available")
         viewModel.shopDomainErrorDidChanged = { errorMessage in
             if errorMessage == ErrorString.shopDomainNotAvailable {
@@ -120,6 +129,9 @@ class OpenShopTests: XCTestCase {
     }
     
     func testShouldNotShowErrorWhenDomainAvailable() {
+        shopNetwork.checkShopDomainValidation = { _, completion in
+            completion(true)
+        }
         let expect = expectation(description: "should not show error when domain available")
         expect.isInverted = true
         viewModel.shopDomainErrorDidChanged = { errorMessage in
@@ -223,6 +235,9 @@ class OpenShopTests: XCTestCase {
     }
     
     func testFailedSubmitForm() {
+        shopNetwork.openShop = { _, _, _, _, completion in
+            completion(false)
+        }
         let expect = expectation(description: "should failed open shop")
         viewModel.onFailedOpenShop = { _ in
             expect.fulfill()
